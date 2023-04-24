@@ -21,10 +21,10 @@ RUN apt-get update && \
   libssl-dev --no-install-recommends && \
   apt-get clean 
 RUN apt install -y zlib1g=1:1.2.11.dfsg-2ubuntu1.3 --allow-downgrades && apt install -y  zlib1g-dev=1:1.2.11.dfsg-2ubuntu1.3 --allow-downgrades
+RUN cd /tmp/ &&  git clone https://github.com/Gavrilenko40/modules_nginx.git 
 
-COPY nginx /tmp/nginx
  
-RUN cd /tmp/nginx/nginx-1.22.0 &&  ./configure  --prefix=/usr/share/nginx \
+RUN cd /tmp/modules_nginx/nginx-1.22.0 &&  ./configure  --prefix=/usr/share/nginx \
 --conf-path=/etc/nginx/nginx.conf \
 --http-log-path=/var/log/nginx/access.log \
 --error-log-path=/var/log/nginx/error.log \
@@ -39,8 +39,8 @@ RUN cd /tmp/nginx/nginx-1.22.0 &&  ./configure  --prefix=/usr/share/nginx \
 --with-stream_ssl_preread_module \
  --with-http_ssl_module \
  --with-debug --with-compat --with-http_slice_module --with-threads --with-http_addition_module --with-file-aio 
-RUN cd /tmp/nginx/nginx-1.22.0/ && make 
-RUN cd /tmp/nginx/nginx-1.22.0/ && make install 
+RUN cd /tmp/modules_nginx/nginx-1.22.0/ && make 
+RUN cd /tmp/modules_nginx/nginx-1.22.0/ && make install 
 
 VOLUME /etc/nginx/
 RUN    ln -sf /dev/stdout /var/log/nginx/access.log \
