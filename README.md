@@ -1,2 +1,3 @@
 # nginx
-dockerfile for nginx 
+dockerfile for nginx + aws auth module
+
